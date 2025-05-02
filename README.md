@@ -2,6 +2,10 @@
 
 >> Not used PostgreSQL since it is behind ORM and it will easier to Test my Project for you.
 
+>> Admin
+>> User - saurabh
+>> Passwd - suman
+
 ## Overview
 
 This API enables the management of patient-doctor mappings in a healthcare system. It uses **Django REST Framework (DRF)** with **JWT Authentication**, **Custom Serializers**, and **Class-Based Views (CBVs)** to handle patient assignments to doctors, with functionalities for **creating**, **retrieving**, and **deleting** patient-doctor relationships.
