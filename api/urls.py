@@ -3,5 +3,8 @@ from . import views
 
 urlpatterns = [
     path('auth/<action>/', views.auth, name='auth'),
-    path('patients/', views.add_patient.as_view(), name='add_patient'),
+    path('patients/', views.AddPatient.as_view(), name='add_patient'),
+    path('patients/<int:id>/', views.ModifyPatient.as_view(), name='modify_patient'),
+    path('doctors/', views.AddDoctor.as_view(), name='add_doctor'),
+    path('doctors/<int:id>/', views.ModifyDoctor.as_view(), name='modify_doctor'),
 ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ManagementStaff, Patient
+from .models import ManagementStaff, Patient, Doctor
 
 
 class ManagementStaffSerializer(serializers.ModelSerializer):
@@ -13,9 +13,20 @@ class ManagementStaffSerializer(serializers.ModelSerializer):
         return user
     
 class PatientSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Patient
-        fields = ['name', 'gender', 'age', 'phone_no', 'address', 'medical_history']
+        fields = ['id', 'name', 'gender', 'age', 'phone_no', 'address', 'medical_history']
+
+    def create(self, validated_data):
+        return super().create(validated_data)
+    
+
+class DoctorSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    class Meta:
+        model = Doctor
+        fields = ['id', 'name', 'gender', 'age', 'phone_no', 'address', 'specialization']
 
     def create(self, validated_data):
         return super().create(validated_data)
