@@ -107,3 +107,30 @@ class ModifyDoctor(APIView):
         doctor.delete()
         return Response(status=204)
 
+class Mapping(APIView):
+    def post(self, request):
+        serializers = MappingSerializer(data=request.data)
+        serializers.is_valid(raise_exception=True)
+        serializers.save()
+        return Response(serializers.data, status=201)
+    
+    def get(self, request, patient_id = None):
+        if patient_id:
+            patient = Patient.objects.filter(id=patient_id).first()
+            serializers = MappingSerializer(patient)
+        else:
+            patients = Patient.objects.all()
+            serializers = MappingSerializer(patients, many=True)
+        
+        return Response(serializers.data, status=200)
+    
+    def delete(self, request, patient_id = None):
+        doctor_id = request.query_params.get('doctor_id')
+        patient = Patient.objects.get(id=patient_id)
+        try:
+            doctor = Doctor.objects.get(id=doctor_id)
+        except Doctor.DoesNotExist:
+            return Response({"message": "Doctor not found"}, status=404)
+        patient.assigned_doctor.remove(doctor)
+        serializers = MappingSerializer(patient)
+        return Response(serializers.data, status=204)
